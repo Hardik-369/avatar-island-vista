@@ -4,6 +4,7 @@ import { IslandGenerator } from './island/IslandGenerator';
 import { UserManager } from './users/UserManager';
 import { CameraController } from './camera/CameraController';
 import { AnimationLoop } from './animation/AnimationLoop';
+import { LightingController } from './lighting/LightingController';
 
 export class IslandWorld {
   private container: HTMLElement;
@@ -11,6 +12,7 @@ export class IslandWorld {
   private islandGenerator: IslandGenerator;
   private userManager: UserManager;
   private cameraController: CameraController;
+  private lightingController: LightingController;
   private animationLoop: AnimationLoop;
   private isInitialized = false;
 
@@ -23,6 +25,7 @@ export class IslandWorld {
       this.sceneManager.camera,
       this.sceneManager.renderer.domElement
     );
+    this.lightingController = new LightingController(this.sceneManager.scene);
     this.animationLoop = new AnimationLoop();
   }
 
@@ -32,18 +35,15 @@ export class IslandWorld {
     try {
       console.log('Initializing IslandWorld...');
       
-      // Setup scene
-      this.sceneManager.setupLighting();
-      
-      // Generate island with trees and houses
+      // Generate minimal floating island
       const islandGroup = this.islandGenerator.generateIsland();
       this.sceneManager.scene.add(islandGroup);
       
-      // Generate ocean
+      // Generate ocean far below
       const ocean = this.islandGenerator.generateOcean();
       this.sceneManager.scene.add(ocean);
       
-      // Setup camera position
+      // Setup camera position for floating island view
       this.cameraController.setInitialPosition();
       
       // Load initial users
@@ -56,8 +56,9 @@ export class IslandWorld {
       // Setup UI controls
       this.setupUIControls();
       
-      // Start animation loop
+      // Start animation loop with lighting updates
       this.animationLoop.start(() => {
+        this.lightingController.update(); // Update day/night cycle
         this.cameraController.update();
         this.userManager.updateAnimations();
         this.sceneManager.render();
@@ -113,6 +114,7 @@ export class IslandWorld {
 
   dispose() {
     this.animationLoop.stop();
+    this.lightingController.dispose();
     this.cameraController.dispose();
     this.userManager.dispose();
     this.sceneManager.dispose();

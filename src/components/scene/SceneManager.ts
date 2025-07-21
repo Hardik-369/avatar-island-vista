@@ -31,29 +31,13 @@ export class SceneManager {
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     
-    // Sky blue background
+    // Initial sky color (will be updated by lighting controller)
     this.scene.background = new THREE.Color(0x87CEEB);
     
-    this.container.appendChild(this.renderer.domElement);
-  }
-
-  setupLighting() {
-    // Ambient light for overall illumination
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
-    this.scene.add(ambientLight);
+    // Add fog for depth and atmosphere
+    this.scene.fog = new THREE.Fog(0x87CEEB, 30, 150);
     
-    // Directional light for shadows and highlights
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(10, 20, 5);
-    directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
-    directionalLight.shadow.camera.near = 0.5;
-    directionalLight.shadow.camera.far = 50;
-    this.scene.add(directionalLight);
-
-    // Optional fog for depth effect
-    this.scene.fog = new THREE.Fog(0x87CEEB, 50, 200);
+    this.container.appendChild(this.renderer.domElement);
   }
 
   private setupResizeHandler() {
