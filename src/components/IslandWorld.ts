@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import { SceneManager } from './scene/SceneManager';
 import { IslandGenerator } from './island/IslandGenerator';
@@ -36,9 +35,9 @@ export class IslandWorld {
       // Setup scene
       this.sceneManager.setupLighting();
       
-      // Generate island
-      const island = this.islandGenerator.generateIsland();
-      this.sceneManager.scene.add(island);
+      // Generate island with trees and houses
+      const islandGroup = this.islandGenerator.generateIsland();
+      this.sceneManager.scene.add(islandGroup);
       
       // Generate ocean
       const ocean = this.islandGenerator.generateOcean();
