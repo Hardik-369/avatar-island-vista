@@ -1,73 +1,158 @@
-# Welcome to your Lovable project
 
-## Project info
+# IslandWorld - 3D Avatar Island Experience
 
-**URL**: https://lovable.dev/projects/484efe92-fd9a-4ad6-b62a-4125c06842c3
+A Three.js web application that displays users as floating profile pictures on a beautiful 3D island.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- 🏝️ Procedurally generated 3D island using native Three.js geometries
+- 👤 Floating user avatars with profile pictures
+- 🎮 Interactive camera controls (orbit, zoom, pan)
+- 📱 Mobile-responsive design
+- 🌊 Animated ocean environment
+- ⚡ Built with Vite for fast development
+- 🎨 Modern UI with Tailwind CSS
 
-**Use Lovable**
+## Getting Started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/484efe92-fd9a-4ad6-b62a-4125c06842c3) and start prompting.
+### Prerequisites
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js (v16 or higher)
+- npm or yarn
 
-**Use your preferred IDE**
+### Installation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/island-world.git
+cd island-world
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. Install dependencies:
+```bash
+npm install
+```
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Controls
 
-**Use GitHub Codespaces**
+- **Mouse/Touch**: Drag to rotate camera around the island
+- **Scroll/Pinch**: Zoom in and out
+- **Add User**: Click the "Add User" button to add random users to the island
+- **Toggle Avatars**: Hide/show all user avatars
+- **Top View**: Switch between orbital and top-down camera views
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/
+│   ├── IslandWorld.ts          # Main application class
+│   ├── scene/
+│   │   └── SceneManager.ts     # Three.js scene setup
+│   ├── island/
+│   │   └── IslandGenerator.ts  # Island geometry generation
+│   ├── users/
+│   │   └── UserManager.ts      # User avatar management
+│   ├── camera/
+│   │   └── CameraController.ts # Camera controls
+│   └── animation/
+│       └── AnimationLoop.ts    # Animation loop management
+└── pages/
+    └── Index.tsx               # Main React component
+```
 
-This project is built with:
+## Customization
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Adding New Users
 
-## How can I deploy this project?
+Users are loaded from mock data. To modify the initial users, edit the `mockUsers` array in `UserManager.ts`.
 
-Simply open [Lovable](https://lovable.dev/projects/484efe92-fd9a-4ad6-b62a-4125c06842c3) and click on Share -> Publish.
+### Island Appearance
 
-## Can I connect a custom domain to my Lovable project?
+Modify the island generation in `IslandGenerator.ts`:
+- Change colors in the `generateIsland()` method
+- Adjust terrain distortion in `applyTerrainDistortion()`
+- Modify ocean appearance in `generateOcean()`
 
-Yes, you can!
+### Camera Behavior
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Customize camera controls in `CameraController.ts`:
+- Adjust sensitivity by modifying the delta multipliers
+- Change zoom limits in the wheel event handler
+- Modify initial camera position in `setInitialPosition()`
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Performance Optimization
+
+- Images are loaded asynchronously with fallback textures
+- Geometry is optimized for mobile devices
+- Textures use efficient filtering
+- Animation loop runs at 60fps with requestAnimationFrame
+
+## Browser Support
+
+- Chrome/Edge 88+
+- Firefox 85+
+- Safari 14+
+- Mobile browsers with WebGL support
+
+## Technologies Used
+
+- **Three.js** - 3D graphics and WebGL rendering
+- **React** - UI framework
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Build tool and development server
+- **Tailwind CSS** - Styling framework
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Deployment
+
+### Vercel Deployment
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy with default settings
+
+### Netlify Deployment
+
+1. Build the project: `npm run build`
+2. Upload the `dist` folder to Netlify
+3. Configure redirects for SPA routing
+
+## Troubleshooting
+
+### Images Not Loading
+- Check CORS settings for external image URLs
+- Ensure image URLs are accessible
+- Default avatars will be used for failed loads
+
+### Performance Issues
+- Reduce the number of avatars for mobile devices
+- Lower texture resolution in UserManager.ts
+- Disable shadows in SceneManager.ts for better performance
+
+### Mobile Controls
+- Ensure touch events are enabled
+- Test zoom functionality with pinch gestures
+- Adjust sensitivity for smaller screens
+
+## Support
+
+For questions or issues, please open an issue on GitHub or contact the development team.
