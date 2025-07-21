@@ -96,16 +96,23 @@ export class IslandGenerator {
 
   private generateTrees(): THREE.Mesh[] {
     const trees = [];
-    const treeCount = 15;
+    const treeCount = 5; // Reduced from 15 to 5
+    
+    // Predefined positions to avoid overcrowding
+    const treePositions = [
+      { angle: 0, radius: 8 },
+      { angle: Math.PI * 0.4, radius: 6 },
+      { angle: Math.PI * 0.8, radius: 10 },
+      { angle: Math.PI * 1.2, radius: 7 },
+      { angle: Math.PI * 1.6, radius: 9 }
+    ];
     
     for (let i = 0; i < treeCount; i++) {
       const tree = this.createTree();
+      const pos = treePositions[i];
       
-      // Random position on island
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 3 + Math.random() * 12;
-      tree.position.x = Math.cos(angle) * radius;
-      tree.position.z = Math.sin(angle) * radius;
+      tree.position.x = Math.cos(pos.angle) * pos.radius;
+      tree.position.z = Math.sin(pos.angle) * pos.radius;
       tree.position.y = 0;
       
       trees.push(tree);
